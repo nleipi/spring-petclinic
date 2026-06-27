@@ -8,7 +8,7 @@
     <th:block th:if="${pet['new']}" th:text="#{new}">New </th:block>
     <span th:text="#{pet}">Pet</span>
   </h2>
-    <form data-id="new-pet-form" th:object="${pet}" th:action="${action}" class="form-horizontal" method="post" th:attr="data-ajt-mode=${newForm}?'dialog' : 'update'" data-via-ajt data-ajt-target="[data-id=new-pet-form]">
+    <form data-id="new-pet-form" th:object="${pet}" th:action="@{/owners/{ownerId}/pets/{petId}(ownerId=${owner.id}, petId=${pet['new']? 'new' : pet.id + '/edit'})}" class="form-horizontal" method="post" th:attr="data-ajt-mode=${newForm}?'dialog' : 'update'" data-via-ajt data-ajt-target="[data-id=new-pet-form]">
     <input type="hidden" name="id" th:value="*{id}" />
     <div class="form-group has-feedback">
       <div class="form-group">

@@ -14,7 +14,7 @@
     <span th:text="${error}"></span>
   </div>
 
-  <table class="table table-striped" th:object="${owner}">
+  <table id="owner-details" class="table table-striped" th:object="${owner}" data-ajt-mode="replace">
     <tr>
       <th th:text="#{name}">Name</th>
       <td><b th:text="*{firstName + ' ' + lastName}"></b></td>
@@ -33,7 +33,7 @@
     </tr>
   </table>
 
-  <a th:href="@{__${owner.id}__/edit}" class="btn btn-primary" th:text="#{editOwner}">Edit
+  <a th:href="@{__${owner.id}__/edit}" class="btn btn-primary" th:text="#{editOwner}" data-via-ajt>Edit
     Owner</a>
   <a th:href="@{__${owner.id}__/pets/new}" class="btn btn-primary" th:text="#{addNewPet}" data-via-ajt>Add
     New Pet</a>
@@ -69,7 +69,7 @@
             <td th:text="${visit?.description}"></td>
           </tr>
           <tr>
-            <td><a th:href="@{__${owner.id}__/pets/__${pet.id}__/edit}" th:text="#{editPet}">Edit Pet</a></td>
+            <td><a th:href="@{__${owner.id}__/pets/__${pet.id}__/edit}" th:text="#{editPet}" data-via-ajt>Edit Pet</a></td>
             <td><a th:href="@{__${owner.id}__/pets/__${pet.id}__/visits/new}" th:text="#{addVisit}">Add Visit</a></td>
           </tr>
         </table>
