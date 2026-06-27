@@ -135,8 +135,7 @@ class OwnerController {
 	}
 
 	@GetMapping("/owners/{ownerId}/edit")
-	public String initUpdateOwnerForm(ModelMap model) {
-		model.put("newForm", true);
+	public String initUpdateOwnerForm() {
 		return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
 	}
 

@@ -9,6 +9,9 @@ window.ajtContentHandlers = Object.assign({
     return () => {
       document.body.append(dialog)
       dialog.showModal()
+      dialog.addEventListener('close', (e) => {
+        dialog.remove()
+      })
     }
   }
 }, window.ajtContentHandlers)
@@ -31,6 +34,9 @@ window.ajtCompare = function (a, b) {
       }
       return elA.nodeName === elB.nodeName
     })
+    if (containsSameId) {
+      return true
+    }
     const containsSameInput = Array.from(a.querySelectorAll('input[name]')).some(inputA => {
       const inputB = b.querySelector(`input[${inputA.name}]`)
       const same = inputB === null

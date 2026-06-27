@@ -47,6 +47,11 @@ public class WebConfiguration implements WebMvcConfigurer {
 		interceptor.setParamName("lang");
 		return interceptor;
 	}
+	
+	@Bean
+	public AjtInterceptor ajtInterceptor() {
+		return new AjtInterceptor();
+	}
 
 	/**
 	 * Registers the locale change interceptor so it can run on each request.
@@ -55,6 +60,7 @@ public class WebConfiguration implements WebMvcConfigurer {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(localeChangeInterceptor());
+		registry.addInterceptor(ajtInterceptor());
 	}
 
 }

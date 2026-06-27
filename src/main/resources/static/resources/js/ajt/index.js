@@ -50,7 +50,10 @@ export function createListener(createBuilder) {
   return async function(event) {
     const builder = createBuilder(event)
     const targets = builder.getTargets()
-    if (targets.every(el => typeof el.dataset.viaAjt === 'undefined')) {
+    const handleEvent = targets.some(el => 
+      el.dataset.viaAjt === '' || el.dataset.viaAjt === 'true'
+    )
+    if (!handleEvent) {
       return
     }
     if (typeof window.ajtProcessEvent === 'function') {

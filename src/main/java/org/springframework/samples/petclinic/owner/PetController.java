@@ -36,7 +36,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jakarta.validation.Valid;
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.util.UriComponentsBuilder;
 
 /**
  * @author Juergen Hoeller
@@ -98,10 +97,9 @@ class PetController {
 	}
 
 	@GetMapping("/pets/new")
-	public String initCreationForm(Owner owner, ModelMap model) {
+	public String initCreationForm(Owner owner) {
 		Pet pet = new Pet();
 		owner.addPet(pet);
-		model.put("newForm", true);
 		return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
 	}
 
@@ -129,8 +127,7 @@ class PetController {
 	}
 
 	@GetMapping("/pets/{petId}/edit")
-	public String initUpdateForm(Owner owner, Pet pet, ModelMap model) {
-		model.put("newForm", true);
+	public String initUpdateForm() {
 		return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
 	}
 
