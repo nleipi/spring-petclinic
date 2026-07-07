@@ -12,6 +12,28 @@ window.ajtContentHandlers = Object.assign({
         dialog.remove()
       })
     }
+  },
+  toast(element, handleRemoveContent, handleAddContent) {
+    const toastElement = document.createElement('div')
+    toastElement.className = 'toast hide'
+    if (typeof element.dataset.appToastStyle === 'string') {
+      toastElement.classList.add(...element.dataset.appToastStyle.split(/\s+/))
+    }
+
+    const toastBody = document.createElement('div')
+    toastBody.className = 'toast-body'
+    toastElement.appendChild(toastBody)
+
+    const fragment = document.createDocumentFragment()
+    while (element.firstChild) {
+      handleAddContent(element.firstChild)
+      fragment.appendChild(element.firstChild)
+    }
+    toastBody.appendChild(fragment)
+    handleAddContent(toastElement)
+    return () => {
+      document.getElementById('toast-container').append(toastElement)
+    }
   }
 }, window.ajtContentHandlers)
 
@@ -34,6 +56,12 @@ document.addEventListener('ajtDomProcess', (event) => {
       if (el.dataset?.appViewTransitionName) {
         el.style.viewTransitionName = el.dataset.appViewTransitionName
         clearViewTransitionNames.push(el)
+      }
+      if (el.matches?.('.toast.hide')) {
+        const toast = new bootstrap.Toast(el)
+        batch.addEventListener('afterApplyDomChanges', () => {
+          toast.show()
+        })
       }
     })
     batch.addEventListener('afterUpdate', () => {
