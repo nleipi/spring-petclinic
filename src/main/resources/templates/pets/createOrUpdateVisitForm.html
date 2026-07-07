@@ -27,7 +27,11 @@
     </tr>
   </table>
 
-    <form id="visit-form" th:object="${visit}" class="form-horizontal" method="post" th:action="@{/owners/{ownerId}/pets/{petId}/visits/new(ownerId=${owner.id}, petId=${pet.id})}" th:data-ajt-mode="${#fields.hasAnyErrors()?'update' : 'dialog'}" th:data-via-ajt="${is_ajt}">
+    <form id="visit-form" th:object="${visit}" class="form-horizontal" method="post"
+      th:action="@{/owners/{ownerId}/pets/{petId}/visits/new(ownerId=${owner.id}, petId=${pet.id})}"
+      th:data-ajt-mode="${#fields.hasAnyErrors()?'update' : 'dialog'}"
+      th:data-ajt-view-transition-types="${#fields.hasAnyErrors()?'' : 'open-dialog'}"
+      th:data-via-ajt="${is_ajt}">
     <div class="form-group has-feedback">
       <input th:replace="~{fragments/inputField :: input ('Date', 'date', 'date')}" />
       <input th:replace="~{fragments/inputField :: input ('Description', 'description', 'text')}" />

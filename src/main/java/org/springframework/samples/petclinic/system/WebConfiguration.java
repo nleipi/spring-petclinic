@@ -47,7 +47,7 @@ public class WebConfiguration implements WebMvcConfigurer {
 		interceptor.setParamName("lang");
 		return interceptor;
 	}
-	
+
 	@Bean
 	public AjtInterceptor ajtInterceptor() {
 		return new AjtInterceptor();

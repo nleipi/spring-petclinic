@@ -1,8 +1,7 @@
-console.log('petclinic.js')
-
 window.ajtContentHandlers = Object.assign({
   dialog(element, handleRemoveContent, handleAddContent) {
     const dialog = document.createElement('dialog')
+    dialog.className = 'dialog'
     dialog.closedBy = 'any'
     dialog.append(element)
     handleAddContent(dialog)
@@ -16,35 +15,31 @@ window.ajtContentHandlers = Object.assign({
   }
 }, window.ajtContentHandlers)
 
-window.ajtCompare = function (a, b) {
-  if (!a.isEqualNode(b)) {
-    if (a.dataset.ajtCompare || b.dataset.ajtCompare) {
-      return a.dataset.ajtCompare === b.dataset.ajtCompare
-    }
-    if (a.id || b.id) {
-      return a.id === b.id
-    }
-    const containsSameId = Array.from(a.querySelectorAll('[id]')).some(elA => {
-      if (!elA.id) {
-        return false
+document.addEventListener('ajtDomProcess', (event) => {
+  const domProcess = event.detail
+
+  domProcess.addEventListener('batch', (event) => {
+    const batch = event.detail
+    const clearViewTransitionNames = []
+    batch.addEventListener('addElement', (event) => {
+      const el = event.detail
+      if (el.dataset?.appScrollIntoView) {
+        batch.addEventListener('afterApplyDomChanges', () => {
+          const p = el.scrollIntoView() || new Promise((resolve) => {
+            setTimeout(resolve, 300)
+          })
+          batch.addTransitionPromise(p)
+        })
       }
-      const elB = document.getElementById(elA.id)
-      if (!elB) {
-        return false
+      if (el.dataset?.appViewTransitionName) {
+        el.style.viewTransitionName = el.dataset.appViewTransitionName
+        clearViewTransitionNames.push(el)
       }
-      return elA.nodeName === elB.nodeName
     })
-    if (containsSameId) {
-      return true
-    }
-    const containsSameInput = Array.from(a.querySelectorAll('input[name]')).some(inputA => {
-      const inputB = b.querySelector(`input[${inputA.name}]`)
-      const same = inputB === null
-        ? false
-        : inputA.type === inputB.type
-      return same
+    batch.addEventListener('afterUpdate', () => {
+      clearViewTransitionNames.forEach(el => {
+        el.style.viewTransitionName = null
+      })
     })
-    return containsSameInput
-  }
-  return true
-}
+  })
+})
