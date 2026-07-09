@@ -31,7 +31,7 @@
       th:action="@{/owners/{ownerId}/pets/{petId}/visits/new(ownerId=${owner.id}, petId=${pet.id})}"
       th:data-ajt-mode="${#fields.hasAnyErrors()?'update' : 'dialog'}"
       th:data-ajt-view-transition-types="${#fields.hasAnyErrors()?'' : 'open-dialog'}"
-      th:data-via-ajt="${is_ajt}">
+      data-ajt-apply-trigger>
     <div class="form-group has-feedback">
       <input th:replace="~{fragments/inputField :: input ('Date', 'date', 'date')}" />
       <input th:replace="~{fragments/inputField :: input ('Description', 'description', 'text')}" />
