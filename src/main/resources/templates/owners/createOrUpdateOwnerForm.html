@@ -9,7 +9,7 @@
       th:action="@{/owners/{ownerId}(ownerId=${owner['new']? 'new' : owner.id + '/edit'})}"
       th:data-ajt-mode="${#fields.hasAnyErrors()?'update' : 'dialog'}"
       th:data-ajt-view-transition-types="${#fields.hasAnyErrors()?'' : 'open-dialog'}"
-      data-ajt-apply-trigger>
+      data-ajt-set-data-via-ajt>
     <div class="form-group has-feedback">
       <input th:replace="~{fragments/inputField :: input (#{firstName}, 'firstName', 'text')}" />
       <input th:replace="~{fragments/inputField :: input (#{lastName}, 'lastName', 'text')}" />

@@ -13,7 +13,7 @@
       class="form-horizontal" method="post"
       th:data-ajt-mode="${#fields.hasAnyErrors()?'update' : 'dialog'}"
       th:data-ajt-view-transition-types="${#fields.hasAnyErrors()?'' : 'open-dialog'}"
-      data-ajt-apply-trigger
+      data-ajt-set-data-via-ajt
       data-ajt-target="[data-id=new-pet-form]">
     <input type="hidden" name="id" th:value="*{id}" />
     <div class="form-group has-feedback">
