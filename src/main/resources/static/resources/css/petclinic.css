@@ -9399,6 +9399,59 @@ table td.action-column {
 hr {
   border-top: 1px dotted #34302D; }
 
+:root {
+  view-transition-name: none; }
+
+::view-transition {
+  pointer-events: none; }
+
+:active-view-transition-type(open-dialog) .dialog {
+  view-transition-name: open-dialog; }
+
+:active-view-transition-type(close-dialog) .dialog {
+  view-transition-name: close-dialog; }
+
+:active-view-transition-type(show-message) .success-message {
+  view-transition-name: match-element; }
+
+::view-transition-group(close-dialog),
+::view-transition-group(open-dialog) {
+  animation: none; }
+
+::view-transition-old(close-dialog) {
+  animation: 0.3s ease-in-out both close-modal; }
+
+::view-transition-new(open-dialog) {
+  animation: 0.3s ease-in-out both open-modal; }
+
+::view-transition-group(pet-info) {
+  animation: none; }
+
+::view-transition-new(pet-info) {
+  animation: 1s ease-in-out 3 both pulse; }
+
+@keyframes pulse {
+  0%, 100% {
+    outline: solid 2px transparent; }
+  50% {
+    outline: solid 2px #6db33f; } }
+
+@keyframes open-modal {
+  from {
+    opacity: 0;
+    translate: 0 80px; }
+  to {
+    opacity: 1;
+    translate: 0 0; } }
+
+@keyframes close-modal {
+  from {
+    opacity: 1;
+    translate: 0 0; }
+  to {
+    opacity: 0;
+    translate: 0 -80px; } }
+
 @font-face {
   font-family: 'varela_roundregular';
   src: url("../fonts/varela_round-webfont.eot");

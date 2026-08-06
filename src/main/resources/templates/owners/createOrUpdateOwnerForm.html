@@ -5,7 +5,11 @@
 <body>
 
   <h2 th:text="#{owner}">Owner</h2>
-  <form th:object="${owner}" class="form-horizontal" id="add-owner-form" method="post">
+    <form th:object="${owner}" class="form-horizontal" id="add-owner-form" method="post"
+      th:action="@{/owners/{ownerId}(ownerId=${owner['new']? 'new' : owner.id + '/edit'})}"
+      th:data-ajt-mode="${#fields.hasAnyErrors()?'update' : 'dialog'}"
+      th:data-ajt-view-transition-types="${#fields.hasAnyErrors()?'' : 'open-dialog'}"
+      data-ajt-set-data-via-ajt>
     <div class="form-group has-feedback">
       <input th:replace="~{fragments/inputField :: input (#{firstName}, 'firstName', 'text')}" />
       <input th:replace="~{fragments/inputField :: input (#{lastName}, 'lastName', 'text')}" />
